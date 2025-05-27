@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: chatbot_hm
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 20032003
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init_postgres.sql:/docker-entrypoint-initdb.d/init_postgres.sql
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m  # Giới hạn bộ nhớ (tuỳ chọn)
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+    ports:
+      - "9200:9200"
+    networks:
+      - app-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  hmmobile_bot:
+    build: .
+    container_name: hmmobile_bot
+    ports:
+      - "7878:7878"
+    volumes:
+      - ./logs:/app/logs
+      - ./load_data_to_elasticsearch.py:/app/load_data_to_elasticsearch.py
+      - ./init_elasticsearch.sh:/app/init_elasticsearch.sh
+    environment:
+      - ELASTIC_HOST=http://elasticsearch:9200
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB_NAME=chatbot_hm
+      - POSTGRES_PASSWORD=20032003
+      - POSTGRES_USER=postgres
+      - POSTGRES_PORT=5432
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:

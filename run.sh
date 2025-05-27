@@ -1,0 +1,1 @@
+nohup python run_api_zalo.py >logs/bash/log.txt 2>&1 & echo $! > logs/bash/pid.pid

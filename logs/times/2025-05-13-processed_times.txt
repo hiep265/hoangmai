@@ -1,0 +1,9 @@
+2025-05-13 17:13:41,891 - INFO: Hàm DECISION_SEARCH_TYPE thực thi trong 1.8452 giây
+2025-05-13 17:13:43,458 - INFO: Hàm SEARCH_DB thực thi trong 0.0936 giây
+2025-05-13 17:13:57,901 - INFO: Hàm CHAT_SESSION thực thi trong 20.3002 giây
+2025-05-13 17:16:44,885 - INFO: Hàm DECISION_SEARCH_TYPE thực thi trong 1.3107 giây
+2025-05-13 17:16:46,535 - INFO: Hàm SEARCH_DB thực thi trong 0.1666 giây
+2025-05-13 17:16:55,323 - INFO: Hàm CHAT_SESSION thực thi trong 13.5234 giây
+2025-05-13 17:23:22,814 - INFO: Hàm DECISION_SEARCH_TYPE thực thi trong 1.3424 giây
+2025-05-13 17:23:24,323 - INFO: Hàm SEARCH_DB thực thi trong 0.0744 giây
+2025-05-13 17:23:31,861 - INFO: Hàm CHAT_SESSION thực thi trong 12.1414 giây
