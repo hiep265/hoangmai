@@ -23,7 +23,7 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
-    container_name: elasticsearch
+    container_name: elasticsearch-hoangmai
     environment:
       - discovery.type=single-node
       - ES_JAVA_OPTS=-Xms512m -Xmx512m  # Giới hạn bộ nhớ (tuỳ chọn)
