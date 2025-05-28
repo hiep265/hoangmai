@@ -11,7 +11,7 @@ services:
       - ./load_data_to_elasticsearch.py:/app/load_data_to_elasticsearch.py
       - ./init_elasticsearch.sh:/app/init_elasticsearch.sh
     environment:
-      - ELASTIC_HOST=http://<ELASTICSEARCH_IP>:9200
+      - ELASTIC_HOST=http://elasticsearch:9200
       - POSTGRES_HOST=<POSTGRES_IP>
       - POSTGRES_DB_NAME=chatbot_hm
       - POSTGRES_PASSWORD=20032003
