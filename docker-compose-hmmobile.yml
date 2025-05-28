@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  hmmobile_bot:
+    build: .
+    container_name: hmmobile_bot
+    ports:
+      - "7878:7878"
+    volumes:
+      - ./logs:/app/logs
+      - ./load_data_to_elasticsearch.py:/app/load_data_to_elasticsearch.py
+      - ./init_elasticsearch.sh:/app/init_elasticsearch.sh
+    environment:
+      - ELASTIC_HOST=http://<ELASTICSEARCH_IP>:9200
+      - POSTGRES_HOST=<POSTGRES_IP>
+      - POSTGRES_DB_NAME=chatbot_hm
+      - POSTGRES_PASSWORD=20032003
+      - POSTGRES_USER=postgres
+      - POSTGRES_PORT=5432
+    restart: always 
